@@ -6,8 +6,6 @@ import { checkAvailability } from '@/lib/availability';
 
 const NOW = 540;
 
-const A101 = ROOMS.find((r) => r.id === 'A101') as Room;
-const A102 = ROOMS.find((r) => r.id === 'A102') as Room;
 const B202 = ROOMS.find((r) => r.id === 'B202') as Room;
 
 describe('filterRooms', () => {

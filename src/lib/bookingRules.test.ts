@@ -10,7 +10,6 @@ import {
 
 const A101 = ROOMS.find((r) => r.id === 'A101') as Room;
 const B202 = ROOMS.find((r) => r.id === 'B202') as Room;
-const C301 = ROOMS.find((r) => r.id === 'C301') as Room;
 
 describe('fixtures (unchanged)', () => {
   it('ROOM is A101', () => {
