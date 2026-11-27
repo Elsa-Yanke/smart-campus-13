@@ -5,6 +5,7 @@ const EQUIPMENT_ITEMS = ['projector', 'whiteboard', 'computers', 'microphone', '
 type RoomFiltersProps = {
   attendees: string;
   requiredEquipment: string[];
+  error?: string;
   onAttendeesChange: (value: string) => void;
   onEquipmentToggle: (eq: string) => void;
 };
@@ -12,6 +13,7 @@ type RoomFiltersProps = {
 export function RoomFilters({
   attendees,
   requiredEquipment,
+  error,
   onAttendeesChange,
   onEquipmentToggle,
 }: RoomFiltersProps) {
@@ -33,8 +35,12 @@ export function RoomFilters({
             min="0"
             value={attendees}
             onChange={(e) => onAttendeesChange(e.target.value)}
-            className="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-slate-900 shadow-sm transition focus:outline-none focus:ring-2 focus:ring-sky-500"
+            aria-invalid={error ? true : undefined}
+            className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-slate-900 shadow-sm transition focus:outline-none focus:ring-2 ${
+              error ? 'border-red-400 focus:ring-red-400' : 'border-slate-300 focus:ring-sky-500'
+            }`}
           />
+          {error && <p className="mt-1.5 text-sm text-red-600">{error}</p>}
         </div>
 
         <div>

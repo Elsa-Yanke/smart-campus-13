@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Building2 } from 'lucide-react';
 import { ROOMS } from '@/data/rooms';
 import type { Room } from '@/data/rooms';
-import { filterRooms, reconcileSelection } from '@/lib/roomFilters';
+import { filterRooms, reconcileSelection, validateAttendees } from '@/lib/roomFilters';
 import { clampInt, computeResult, type Result, type Errors } from '@/lib/availability';
 import { AvailabilityForm } from '@/components/AvailabilityForm';
 import { ResultPanel } from '@/components/ResultPanel';
@@ -36,6 +36,8 @@ export default function App() {
   );
 
   const noMatch = filteredRooms.length === 0;
+
+  const attendeesError = validateAttendees(attendees);
 
   useEffect(() => {
     if (result) {
@@ -138,6 +140,7 @@ export default function App() {
             filteredRooms={filteredRooms}
             selectedId={reconciledId}
             noMatch={noMatch}
+            attendeesError={attendeesError}
             now={now}
             start={start}
             end={end}

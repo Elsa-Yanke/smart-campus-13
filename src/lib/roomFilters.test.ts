@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { ROOMS } from '@/data/rooms';
 import type { Room } from '@/data/rooms';
-import { filterRooms, reconcileSelection } from '@/lib/roomFilters';
+import { filterRooms, reconcileSelection, validateAttendees } from '@/lib/roomFilters';
 import { checkAvailability } from '@/lib/availability';
 
 const NOW = 540;
@@ -87,6 +87,29 @@ describe('filterRooms', () => {
   it('returns empty array when no room matches', () => {
     const result = filterRooms(ROOMS, 100, []);
     expect(result).toEqual([]);
+  });
+});
+
+describe('validateAttendees', () => {
+  it('rejects empty input', () => {
+    expect(validateAttendees('')).not.toBeNull();
+  });
+
+  it('rejects -5', () => {
+    expect(validateAttendees('-5')).not.toBeNull();
+  });
+
+  it('rejects 2.5', () => {
+    expect(validateAttendees('2.5')).not.toBeNull();
+  });
+
+  it('rejects 1001', () => {
+    expect(validateAttendees('1001')).not.toBeNull();
+  });
+
+  it('accepts boundary values 1 and 1000', () => {
+    expect(validateAttendees('1')).toBeNull();
+    expect(validateAttendees('1000')).toBeNull();
   });
 });
 

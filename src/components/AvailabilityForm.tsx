@@ -11,6 +11,7 @@ type AvailabilityFormProps = {
   filteredRooms: Room[];
   selectedId: string | null;
   noMatch: boolean;
+  attendeesError: string | null;
   now: string;
   start: string;
   end: string;
@@ -31,6 +32,7 @@ export function AvailabilityForm({
   filteredRooms,
   selectedId,
   noMatch,
+  attendeesError,
   now,
   start,
   end,
@@ -55,6 +57,7 @@ export function AvailabilityForm({
         <RoomFilters
           attendees={attendees}
           requiredEquipment={requiredEquipment}
+          error={attendeesError ?? undefined}
           onAttendeesChange={onAttendeesChange}
           onEquipmentToggle={onEquipmentToggle}
         />
@@ -103,7 +106,7 @@ export function AvailabilityForm({
           <button
             type="button"
             onClick={onCheck}
-            disabled={noMatch}
+            disabled={noMatch || attendeesError !== null}
             className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-slate-300"
           >
             <CalendarClock className="h-4 w-4" />
